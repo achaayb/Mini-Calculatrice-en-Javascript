@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini calculatrice</title>
+    <style>
+        @font-face {
+            font-family: PublicPixel;
+            src: url(PublicPixel.ttf);
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0px;
+            font-family: PublicPixel;
+            border-color: #66ce9b;
+            border-radius: 5px;
+        }
+        button {
+            width : 100px;
+            height : 50px;
+            background-color: #7fd8a0;
+        }
+        input {
+            width: 100%;
+            height : 70px;
+        }
+    </style>
+</head>
+<body style="display: flex;justify-content: center;align-items: center;height:100vh;background-color: #e1fbef;">
+<script>
+    
+    
+    function foo(op){
+        if (document.getElementById("ram").value == ''){
+            document.getElementById("op").value += op;
+            document.getElementById("ram").value = op;
+        } else {
+            calc();
+            document.getElementById("op").value += op;
+            document.getElementById("ram").value = op;
+        }
+    }
+
+    function calc(){
+        if (document.getElementById("ram").value != '' && document.getElementById("op").value.slice(-1) != document.getElementById("ram").value){
+            let op = document.getElementById("ram").value;
+            let fst = document.getElementById("op").value.split(document.getElementById("ram").value)[0];
+            let sec = document.getElementById("op").value.split(document.getElementById("ram").value)[1];
+            console.log("op " + op);
+            console.log("fst " + fst);
+            console.log("sec " + sec);
+
+            console.log(document.getElementById("op").value = operate(
+                document.getElementById("op").value.split(document.getElementById("ram").value)[0],
+                document.getElementById("op").value.split(document.getElementById("ram").value)[1],
+                document.getElementById("ram").value
+            ));
+            document.getElementById("ram").value = '';
+        } else {
+            document.getElementById("op").value = 0;
+            document.getElementById("ram").value = '';
+        }
+    }
+
+    function operate(fst, scd, op){
+        switch(op) {
+            case "+":
+                return parseFloat(fst)+parseFloat(scd);
+                break;
+            case "-":
+                return parseFloat(fst)-parseFloat(scd);
+                break;
+            case "/":
+                return parseFloat(fst)/parseFloat(scd);
+                break;
+            case "*":
+                return parseFloat(fst)*parseFloat(scd);
+                break;
+            case "%":
+                return parseFloat(fst)%parseFloat(scd);
+                break;
+            default:
+                return 0;
+        }
+    }
+</script>
+<input id="ram" type="hidden">
+<div style="">
+    <div style="display: grid;grid-template-rows: repeat(6,auto);grid-template-columns: repeat(4,100px);gap:1px">
+        <div style="grid-column: 1/5;"><input id="op" value="0" style="background-color: #aadfc6;" disabled></div>
+        <div><button onclick="document.getElementById('op').value = '0';document.getElementById('ram').value = ''">C</button></div>
+        <div><button>f</button></div>
+        <div><button onclick="foo('%')">%</button></div>
+        <div><button onclick="foo('/')">/</button></div>
+        <div><button onclick="document.getElementById('op').value == '0' ? document.getElementById('op').value = 7 : document.getElementById('op').value += 7;">7</button></div>
+        <div><button onclick="document.getElementById('op').value == '0' ? document.getElementById('op').value = 8 : document.getElementById('op').value += 8;">8</button></div>
+        <div><button onclick="document.getElementById('op').value == '0' ? document.getElementById('op').value = 9 : document.getElementById('op').value += 9;">9</button></div>
+        <div><button onclick="foo('*')">X</button></div>
+        <div><button onclick="document.getElementById('op').value == '0' ? document.getElementById('op').value = 4 : document.getElementById('op').value += 4;">4</button></div>
+        <div><button onclick="document.getElementById('op').value == '0' ? document.getElementById('op').value = 5 : document.getElementById('op').value += 5;">5</button></div>
+        <div><button onclick="document.getElementById('op').value == '0' ? document.getElementById('op').value = 6 : document.getElementById('op').value += 6;">6</button></div>
+        <div><button onclick="foo('-')">-</button></div>
+        <div><button onclick="document.getElementById('op').value == '0' ? document.getElementById('op').value = 1 : document.getElementById('op').value += 1;">1</button></div>
+        <div><button onclick="document.getElementById('op').value == '0' ? document.getElementById('op').value = 2 : document.getElementById('op').value += 2;">2</button></div>
+        <div><button onclick="document.getElementById('op').value == '0' ? document.getElementById('op').value = 3 : document.getElementById('op').value += 3;">3</button></div>
+        <div style="grid-row: 5/7;grid-column: 4/5;"><button onclick="calc();" style="height:100%;">=</button></div>
+        <div><button onclick="document.getElementById('op').value == '0' ? document.getElementById('op').value = 0 : document.getElementById('op').value += 0;">0</button></div>
+        <div><button onclick="document.getElementById('op').value += '.';">.</button></div>
+        <div><button onclick="foo('+')">+</button></div>
+    </div>
+
+</div>
+
+
+    
+</body>
+</html>
